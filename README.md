@@ -1,2 +1,63 @@
 # OOP-Object-Oriented-Programming-for-System-Verilog
-n system verilog all the properties of the class are public by default or we can say it be accessed outside the class directly using the dot operator. If we want to protect the access of the class variables/properties from outside the class we can use the local keyword. Hiding the properties from being accessed outside the class is called encapsulation. If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected. Then it will be available in the extended classes but not in the main program.
+
+# Abstraction
+
+# Encapsulation
+
+In system verilog all the properties of the class are public by default 
+or we can say it be accessed outside the class directly using the dot operator. 
+If we want to protect the access of the class variables/properties from outside the class we can use the local keyword. 
+Hiding the properties from being accessed outside the class is called encapsulation. If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected. 
+Then it will be available in the extended classes but not in the main program.
+
+    class base;
+      string my_public;
+      local string my_local; //
+      protected string my_protected;
+  
+      function new();
+        my_public = "FOR ALL";
+        my_local = "FOR BASE ONLY";
+        my_protected = "EXTENDED CLASS CAN USE";
+      endfunction
+
+      task print();
+        $display();
+        $display ("BASE class: my_public = %0s",my_public);
+        $display ("BASE class: my_local = %0s",my_local);
+        $display ("BASE class: my_protected = %0s\n",my_protected);
+      endtask
+    endclass
+
+    class extended extends base;
+
+      task print();
+        $display ("extended class: my_public = %0s",my_public);
+        //$display ("extended class: my_local = %0s",my_local);
+        // Above commented line will give compile error: Illegal class variable access. because its local to base only
+        $display ("extended class: my_protected = %0s \n",my_protected);
+       endtask
+    endclass
+
+    class distinct;
+      base b=new();
+
+      task print();
+        $display ("distinct class: my_public = %0s\n",b.my_public);
+        //$display ("distinct class: my_local = %0s",b.my_local);
+        //$display ("distinct class: my_protected = %0s",b.my_protected);
+        // Above both commented line will give compile error: Illegal class variable access. because local and protected properties can’t be accessed from outside class
+      endtask
+    endclass
+
+    program encapsulation;
+      base b=new();
+      extended ex=new();
+      distinct dis=new();
+
+      initial begin
+        b.print();
+        ex.print();
+        dis.print();
+      end
+    endprogram
