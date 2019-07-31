@@ -2,6 +2,8 @@
 
 # Abstraction
 
+
+
 # Encapsulation
 
 In system verilog all the properties of the class are public by default 
@@ -9,6 +11,13 @@ or we can say it be accessed outside the class directly using the dot operator.
 If we want to protect the access of the class variables/properties from outside the class we can use the local keyword. 
 Hiding the properties from being accessed outside the class is called encapsulation. If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected. 
 Then it will be available in the extended classes but not in the main program.
+
+In systemverilog, two keywords are specified to hide a class member.
+
+local: This will ensure that the member is available only to the method of the same class. Even, a local member will not be available to its extended classes.
+protected: If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected.
+
+Example:
 
     class base;
       string my_public;
