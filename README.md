@@ -1,8 +1,81 @@
 # OOP-Object-Oriented-Programming-for-System-Verilog
 
+# Inheritance
+Normally for first class we created it known as Parent class, the next class created will known as child class. To extends both class we called as inherit. Using extends keyword we inherit the class. 
+
+In heritance they have 5 type:
+1. 
+2.
+3.
+4.
+5.
+
+        //////////////////////////////////////////
+        //Examples show Inheritance Polymorphism//
+        //////////////////////////////////////////
+        module top ();
+
+        class base;
+            virtual function void my_task (); //parents class have their own properties and method
+                $display ("This is base_class");
+            endfunction
+        endclass
+
+        //////////////////////////////////////
+        //This is Extend class (child class)//
+        //////////////////////////////////////
+        class ext_class extends base;   //child class inheriting with class parent
+            function void my_task ();     //child class inherit all the properties and method from parents class 
+                $display ("This is extended class");
+            endfunction
+        endclass
+
+        base bs_hand;  //create the handle for both class
+        ext_class ex_hand;
+
+            initial begin   
+                bs_hand = new;   
+                ex_hand = new;
+                bs_hand.my_task ();  //access by 
+                $display ("\n Applying polymorphism:Overriding base-class method by extended class \n");
+                bs_hand = ex_hand; // Here polymorphism is done.
+                bs_hand.my_task ();
+            end
+        endmodule  
+
+
 # Abstraction
 
+        ///////////////////////////
+        //Examples of ABSTRACTION//
+        ///////////////////////////
+        module top();
 
+            virtual class base;  //Declaring a virtual calss creates a abstract class template that MUST be extended
+                function void run ();
+                    $display("Running Base");
+                endfunction
+                pure virtual function void play();
+            endclass
+
+        class child extends base;
+                function void run ();
+                    $display("Running Child");
+                endfunction
+
+            virtual function void play();
+                $display("Playing football");
+            endfunction
+        endclass
+
+        child c;
+            initial
+            begin
+                c = new;
+                c.run ();
+                c.play();
+          end
+     endmodule
 
 # Encapsulation
 
