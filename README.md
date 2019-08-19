@@ -1,7 +1,8 @@
 # OOP-Object-Oriented-Programming-for-System-Verilog
 
 # Inheritance
-Normally for first class we created it known as Parent class, the next class created will known as child class. To extends both class we called as inherit. Using extends keyword we inherit the class. 
+
+It is a mechanism where you can to derive a class from another class for a hierarchy of classes that share a set of attributes and methods. Normally for first class we created it known as Parent class, the next class created will known as child class. To extends both class we called as inherit. Using extends keyword we inherit the class. 
 
 In heritance they have 5 type:
 1. 
@@ -13,6 +14,7 @@ In heritance they have 5 type:
         //////////////////////////////////////////
         //Examples show Inheritance Polymorphism//
         //////////////////////////////////////////
+        
         module top ();
 
         class base;
@@ -24,6 +26,7 @@ In heritance they have 5 type:
         //////////////////////////////////////
         //This is Extend class (child class)//
         //////////////////////////////////////
+        
         class ext_class extends base;   //child class inheriting with class parent
             function void my_task ();     //child class inherit all the properties and method from parents class 
                 $display ("This is extended class");
@@ -46,9 +49,12 @@ In heritance they have 5 type:
 
 # Abstraction
 
+Abstraction is nothing but its show only necessary
+
         ///////////////////////////
         //Examples of ABSTRACTION//
         ///////////////////////////
+        
         module top();
 
             virtual class base;  //Declaring a virtual calss creates a abstract class template that MUST be extended
@@ -77,24 +83,32 @@ In heritance they have 5 type:
           end
      endmodule
 
+V C S   S i m u l a t i o n   R e p o r t 
+
+Running Child
+Playing football
+           
+
+
 # Encapsulation
 
-In system verilog all the properties of the class are public by default 
-or we can say it be accessed outside the class directly using the dot operator. 
-If we want to protect the access of the class variables/properties from outside the class we can use the local keyword. 
-Hiding the properties from being accessed outside the class is called encapsulation. If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected. 
-Then it will be available in the extended classes but not in the main program.
+Hiding the properties from being accessed outside the class. 
+Use protected keyword, if we want to make the properties accessible in the extended classes (but not outside the classes or main program). 
 
 In systemverilog, two keywords are specified to hide a class member.
 
-local: This will ensure that the member is available only to the method of the same class. Even, a local member will not be available to its extended classes.
-protected: If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected.
+1. local
+This will ensure that the member is available only to the method of the same class. Even, a local member will not be available to its extended classes.
+
+2. protected
+If we want to make the properties accessible in the extended classes but not outside the classes. We can declare the properties as protected.
 
 Example:
 
     //////////////////////////////////////////////////////////////////////
     // Example of Encapsulation using string local and protected keyword//
     //////////////////////////////////////////////////////////////////////
+    
     class base;
         string my_public;
         local string my_local;
@@ -117,6 +131,7 @@ Example:
     //////////////////////////////////////
     //This is Extend class (child class)//
     //////////////////////////////////////
+    
     class extended extends base;
 
         task print();
@@ -128,8 +143,9 @@ Example:
     endclass
 
     ///////////////////////////////////////
-    //This is Distinct class (new class)// 
+    //This is Distinct class (new class)/// 
     ///////////////////////////////////////
+    
     class distinct;
         base b=new();  //object created 
 
@@ -144,6 +160,7 @@ Example:
     //////////////////
     //Program start/// 
     //////////////////
+    
     program encapsulation;
         base b=new();  //object create
         extended ex=new();
@@ -167,8 +184,46 @@ extended class: my_protected = EXTENDED CLASS CAN USE
 
 distinct class: my_public = FOR ALL
 
-$finish at simulation time                    0
-           
+       
 
+In system verilog all the properties of the class are public by default or we can say it can be accessed outside the class directly using the dot operator. If we want to protect the access of the class variables/properties from outside the class we can use the local keyword.
 
   
+# Polymorphism
+
+Poly means Many and Morphism means forms
+Polymorphism is more than one function with same name, but have different working (One thing can be represent in many form)
+
+Two type of Polymorphism
+1. Compile time 
+2. Run time 
+
+        ////////////////////////////
+        //Examples of Polymorphism//
+        ////////////////////////////
+        module top ();
+
+        class base;
+	        function void my_task ();
+  	        $display ("This is base_class");
+	        endfunction
+        endclass
+
+        class ext_class extends base;//Here inheritance is applying
+	        function void my_task ();
+	        $display ("This is extended class");
+	        endfunction
+        endclass
+
+	        base base_hand;
+	        ext_class ext_hand;
+
+	        initial begin
+	        base_hand = new;
+	        ext_hand = new;
+                     base_hand.my_task ();
+		        $display ("\n Applying polymorphism:Overriding base-class method by extended class \n");
+		        base_hand = ext_hand; // Here polymorphism is done 
+		        base_hand.my_task ();
+	        end
+        endmodule
